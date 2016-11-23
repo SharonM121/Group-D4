@@ -5,20 +5,20 @@ from pygame.locals import *
 pygame.init() 
 
 #coordinates for the different values of the RectsValues variable
-Xpos = random.randint(25,  500)
-Ypos = random.randint(25,  480)
+Xpos = 65
+Ypos = 35
 
-Xpos1 = random.randint(25,  500)
-Ypos1 = random.randint(25,  480)
+Xpos1 = 65
+Ypos1 = 145
 
-Xpos2 = random.randint(25,  500)
-Ypos2 = random.randint(25,  480)
+Xpos2 = 65
+Ypos2 = 235
 
-Xpos3 = random.randint(25,  500)
-Ypos3 = random.randint(25,  480)
+Xpos3 = 65
+Ypos3 = 335
 
-Xpos4 = random.randint(25,  500)
-Ypos4 = random.randint(25,  480)
+Xpos4 = 65
+Ypos4 = 435
 
 #setting up the
 #colours    R    G    B
@@ -55,14 +55,14 @@ Pointer         = 'Option1'
 ObjectsValue    = 1
 RectsValue      = 1
  
-#________________
+#Reference: Learned how to do that function in one of the videos of TheNewBoston
 def text_objects(text, color, FontName):
     textSurface = FontName.render(text,True,color)
     return textSurface, textSurface.get_rect()
 
 # Function to show a message to the screen
-def message_to_screen(msg,color,FontName,pos):
-    textSurf, textRect = text_objects(msg,color,FontName)
+def text_to_screen(text,color,FontName,pos):
+    textSurf, textRect = text_objects(text,color,FontName)
     textRect.center = ((displayWidth/2)),(pos)
     displaySurface.blit(textSurf,textRect)
 
@@ -84,11 +84,11 @@ def Menu():
         shape4 = pygame.draw.rect(displaySurface, shape4colour, (491, 259, 6, 6))
         pygame.draw.line(displaySurface, blue, (30,102),(205, 102), 2)
         pygame.draw.line(displaySurface, blue, (597,102),(771, 102), 2)
-        message_to_screen('Objects:   ' + str(ObjectsValue), ObjectsColour, fontType,200) # add text to screen
-        message_to_screen('Rects:     ' + str(RectsValue), RectsColour, fontType,260) # add text to screen
-        message_to_screen('Welcome to WRECT', blue, fontType, 100)
-        message_to_screen('PRESS ENTER TO START GAME', STARTcolour, fontType2,370) # add text to screen
-        message_to_screen('ESC TO CLOSE THE GAME', STARTcolour, fontType3,415)
+        text_to_screen('Objects:   ' + str(ObjectsValue), ObjectsColour, fontType,200) # add text to screen
+        text_to_screen('Rects:     ' + str(RectsValue), RectsColour, fontType,260) # add text to screen
+        text_to_screen('Welcome to WRECT', blue, fontType, 100)
+        text_to_screen('PRESS ENTER TO START GAME', STARTcolour, fontType2,370) # add text to screen
+        text_to_screen('ESC TO CLOSE THE GAME', STARTcolour, fontType3,415)
 
         #This part makes the last two messages to the screen blink
         if STARTcolour == blue:
@@ -163,25 +163,25 @@ def Game():
         displaySurface.fill(white)
         
         if RectsValue == 1:
-            rect1 = pygame.draw.rect(displaySurface, lavender,[Ypos, Xpos, 20, 20])
+            rect1 = pygame.draw.rect(displaySurface, lavender,[Xpos,  Ypos, 20, 20])
         elif RectsValue == 2:
-            rect1 = pygame.draw.rect(displaySurface, lavender,[Ypos, Xpos, 20, 20])
-            rect2 = pygame.draw.rect(displaySurface, lavender,[Ypos1, Xpos1, 20, 20])
+            rect1 = pygame.draw.rect(displaySurface, lavender,[Xpos,  Ypos, 20, 20])
+            rect2 = pygame.draw.rect(displaySurface, lavender,[Xpos1, Ypos1, 20, 20])
         elif RectsValue == 3:
-            rect1 = pygame.draw.rect(displaySurface, lavender,[Ypos, Xpos, 20, 20])
-            rect2 = pygame.draw.rect(displaySurface, lavender,[Ypos1, Xpos1, 20, 20])
-            rect3 = pygame.draw.rect(displaySurface, lavender,[Ypos2, Xpos2, 20, 20])
+            rect1 = pygame.draw.rect(displaySurface, lavender,[Xpos,  Ypos, 20, 20])
+            rect2 = pygame.draw.rect(displaySurface, lavender,[Xpos1, Ypos1, 20, 20])
+            rect3 = pygame.draw.rect(displaySurface, lavender,[Xpos2, Ypos2, 20, 20])
         elif RectsValue == 4:
-            rect1 = pygame.draw.rect(displaySurface, lavender,[Ypos, Xpos, 20, 20])
-            rect2 = pygame.draw.rect(displaySurface, lavender,[Ypos1, Xpos1, 20, 20])
-            rect3 = pygame.draw.rect(displaySurface, lavender,[Ypos2, Xpos2, 20, 20])
-            rect4 = pygame.draw.rect(displaySurface, lavender,[Ypos3, Xpos3, 20, 20])
+            rect1 = pygame.draw.rect(displaySurface, lavender,[Xpos,  Ypos, 20, 20])
+            rect2 = pygame.draw.rect(displaySurface, lavender,[Xpos1, Ypos1, 20, 20])
+            rect3 = pygame.draw.rect(displaySurface, lavender,[Xpos2, Ypos2, 20, 20])
+            rect4 = pygame.draw.rect(displaySurface, lavender,[Xpos3, Ypos3, 20, 20])
         elif RectsValue == 5:
-            rect1 = pygame.draw.rect(displaySurface, lavender,[Ypos, Xpos, 20, 20])
-            rect2 = pygame.draw.rect(displaySurface, lavender,[Ypos1, Xpos1, 20, 20])
-            rect3 = pygame.draw.rect(displaySurface, lavender,[Ypos2, Xpos2, 20, 20])
-            rect4 = pygame.draw.rect(displaySurface, lavender,[Ypos3, Xpos3, 20, 20])
-            rect5 = pygame.draw.rect(displaySurface, lavender,[Ypos4, Xpos4, 20, 20])
+            rect1 = pygame.draw.rect(displaySurface, lavender,[Xpos,  Xpos, 20, 20])
+            rect2 = pygame.draw.rect(displaySurface, lavender,[Xpos1, Ypos1, 20, 20])
+            rect3 = pygame.draw.rect(displaySurface, lavender,[Xpos2, Ypos2, 20, 20])
+            rect4 = pygame.draw.rect(displaySurface, lavender,[Xpos3, Ypos3, 20, 20])
+            rect5 = pygame.draw.rect(displaySurface, lavender,[Xpos4, Ypos4, 20, 20])
            
             
         pygame.display.update()
@@ -206,10 +206,11 @@ def Game():
                         Ypos4 = random.randint(25,480)
                       
                       
-    
+                #####exit game even while it is running // can change later to ****PAUSE*********!!!!!!
                 if event.key == pygame.K_ESCAPE:
-                    Menu = False
-                    Menu()
-            
+                    pygame.quit()
+                    sys.exit
+                ####maybe add pop-up alert to ask if the player is sure if they want to exit the game while it is
+                #### #still running................
             
 Menu()
