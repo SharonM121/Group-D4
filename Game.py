@@ -9,6 +9,7 @@ l_y = 300
 clock = pygame.time.Clock()
 FPS = 60
 
+#Colours set for the game
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -31,6 +32,7 @@ def reward(points):
         points -= 1
     return points
 
+# A while loop to allows me to test the either the code works
 points = 0
 while True:
     for event in pygame.event.get():
