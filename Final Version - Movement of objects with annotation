@@ -1,0 +1,107 @@
+# ------------ Name of the game "WRECT" -----------------------
+
+"""  This code is created to make square blocks move randomly around the arena,
+           also the code will adjust the direction of the square blocks;
+           when it's near the border of the framework.   """
+
+import pygame   #importing pygame module from library
+import random    #the random module implements a random number generator
+import sys #this module would allow a user to use variables and functions to manipulate different parts of the Python runtime environment
+from pygame.locals import * #imports the pygame module into the "pygame" namespace
+
+pygame.init()
+#------------------ initialise the pygame engine --------------------
+
+width = 900 
+height = 700 
+framework = pygame.display.set_mode((width, height)) #This will establish the framework of the game - 900 width by 700 height
+
+fpsClock = pygame.time.Clock() #The Clock object’s tick()
+
+BLOCKsize = 20 #the size of the square block
+
+
+#RGB values (colours)
+white = (255,255,255)
+green = (0,255,0)
+
+#Note: the term 'self' means, it can refer to the object itself
+
+class block:
+    def __init__(self): #it is used to initialise object instances
+        self.x = random.randrange(10, width-10) #referes to the x position 
+        self.y = random.randrange(10, height-10) #refers to the y position 
+        self.speed = random.randrange(2,15) #the speed of the square block 
+        self.move = [None, None] #refers to realtive x and y coordinates to move to
+        self.direction = None #refers to movement direction
+
+    def draw(self):  
+        pygame.draw.rect(framework, (green), (self.x,self.y,BLOCKsize,BLOCKsize),0) #This will create the square blocks
+        
+#-------------- creating a function for compass coordinates, which will allow the square blocks to move randomly around the background --------------------------
+
+
+    def roam(self): 
+        directions = {"s":((-1,2),(1,self.speed)),"sw":((-self.speed,-1),(1,self.speed)),"w":((-self.speed,-1),(-1,2)),"nw":((-self.speed,-1),(-self.speed,-1)),"n":((-1,2),(-self.speed,-1)),"ne":((1,self.speed),(-self.speed,-1)),"e":((1,self.speed),(-1,2)),"se":((1,self.speed),(1,self.speed))} #refers to((min x, max x)(min y, max y))
+        directionsName = ("s","sw","w","nw","n","ne","e","se") 
+  
+#----------------------------------------------------------------- if Statements -----------------------------------------------------------
+        
+        if random.randrange(0,10) == 2: #move about once every 10 frames
+            if self.direction == None: #if no direction is established, establish another random one
+                self.direction = random.choice(directionsName)
+            else:
+                a = directionsName.index(self.direction) #refers to the index of direction in directions list
+                b = random.randrange(a-1,a+2) #this will establish the direction of a square block to be the same or one next to the current direction
+                if b > len(directionsName)-1: #if direction index is outside the list move back to the start
+                    b = 0
+                self.direction = directionsName[b]
+            self.move[0] = random.randrange(directions[self.direction][0][0],directions[self.direction][0][1]) #adjusts relative x to a random number between min x and max x
+            self.move[1] = random.randrange(directions[self.direction][1][0],directions[self.direction][1][1])  #adjusts relative y to a random number between min y and max y
+            
+        if self.x < 10 or self.x > width - 10 or self.y < 10 or self.y > height - 10: #if square blocks are near the border of the screen, this would adjust the direction
+            if self.x < 10:
+                self.direction = "e" #east
+            elif self.x > width - 10:
+                self.direction = "w" #west
+            elif self.y < 10:
+                self.direction = "s" #south
+            elif self.y > height - 10:
+                self.direction = "n" #north         
+      
+            self.move[0] = random.randrange(directions[self.direction][0][0],directions[self.direction][0][1]) #adjusts relative x to a random number between min x and max x
+            self.move[1] = random.randrange(directions[self.direction][1][0],directions[self.direction][1][1]) #adjusts relative x to a random number between min x and max x
+        if self.move[0] != None: #this will add the relative coordinates to the square block coordinates
+            self.x += self.move[0]
+            self.y += self.move[1]
+            
+            
+#This generates the number of square block which can be avaialble in the game
+            
+blocks = []
+for i in range(15): #the quantity of the square blocks
+    Block = block()
+    blocks.append(Block)
+
+#-------------------- Main loop ----------------------
+def mainloop():
+    while True:
+        for event in pygame.event.get():
+            if event.type== QUIT: #if pressing the X, quit the programe
+                pygame.quit() #Halts the game (uninitialise)
+                sys.exit() #Halts the game program
+        framework.fill((white)) #clears the background
+        
+        for B in blocks: #update all 
+            B.roam()
+            B.draw()
+            
+        pygame.display.flip() #update display
+        
+        fpsClock.tick(30)#the speed of the game, (frames per second)
+        
+#this will active the mainloop function
+mainloop()
+
+
+
