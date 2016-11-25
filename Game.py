@@ -4,12 +4,9 @@ pygame.init()
 
 gameExit = False
 gameDisplay = pygame.display.set_mode((500, 500))
-l_x = 300
-l_y = 300
 clock = pygame.time.Clock()
 FPS = 60
 
-#Colours set for the game
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -32,8 +29,9 @@ def reward(points):
         points -= 1
     return points
 
-# A while loop to allows me to test the either the code works
+
 points = 0
+#allows the user to control the white square
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -64,6 +62,8 @@ while True:
         pygame.draw.rect(gameDisplay, blue, whiteSquare)
     elif pygame.Rect.colliderect (whiteSquare, yellowSquare):
         pygame.draw.rect(gameDisplay, yellow, whiteSquare)
+    elif pygame.Rect.colliderect (whiteSquare, redSquare):
+        pygame.draw.rect(gameDisplay, red, whiteSquare)
     else:
         pygame.draw.rect(gameDisplay, white, whiteSquare)
 
